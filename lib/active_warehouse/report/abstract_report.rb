@@ -31,11 +31,11 @@ module ActiveWarehouse #:nodoc:
       # Array of parameters which will be passed
       attr_accessor :pass_params
 
-      # A Hash of level names mapped to a method that is used to filter the 
+      # A Hash of level names mapped to a method that is used to filter the
       # available column values
       attr_accessor :column_filters
 
-      # A Hash of level names mapped to a method that is used to filter the 
+      # A Hash of level names mapped to a method that is used to filter the
       # available row values
       attr_accessor :row_filters
 
@@ -47,7 +47,7 @@ module ActiveWarehouse #:nodoc:
         attributes.each do |name, value|
           send("#{name}=", value)
         end
-        super
+        super()
       end
 
 
@@ -59,7 +59,7 @@ module ActiveWarehouse #:nodoc:
 
       # Get the current cube instance
       def cube
-        @cube ||= 
+        @cube ||=
           begin
             cube_class = ActiveWarehouse::Cube.class_name(self.cube_name).constantize
             cube_class.new
@@ -76,7 +76,7 @@ module ActiveWarehouse #:nodoc:
         @column_dimension_class ||= fact_class.dimension_class(self.column_dimension_name)
       end
 
-      # Get the column hierarchy. Uses the first hierarchy in the column 
+      # Get the column hierarchy. Uses the first hierarchy in the column
       # dimension if not specified
       def column_hierarchy
         ch = @column_hierarchy
@@ -108,7 +108,7 @@ module ActiveWarehouse #:nodoc:
         @row_param_prefix ||= 'r'
       end
 
-      # Get the list of displayed fact attributes. If this value is not 
+      # Get the list of displayed fact attributes. If this value is not
       # specified then all aggregate and calculated fields will be displayed
       def fact_attributes
         @fact_attributes ||= Array.new.tap do |fa|
