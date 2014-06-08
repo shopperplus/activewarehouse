@@ -1,7 +1,7 @@
 module ActiveWarehouse #:nodoc:
   # Class that holds the results of a Cube query
   class CubeQueryResult
-    attr_reader :aggregate_fields_hash
+    attr_reader :aggregate_fields_hash, :values_map
 
     # Initialize the aggregate map with an array of AggregateField instances.
     # The AggregateFields are used to typecast the raw values coming from
