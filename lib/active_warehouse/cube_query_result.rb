@@ -10,7 +10,7 @@ module ActiveWarehouse #:nodoc:
       raise ArgumentError, "aggregate_fields must not be empty" unless aggregate_fields && aggregate_fields.size > 0
       @aggregate_fields_hash = {}
       aggregate_fields.each {|c| @aggregate_fields_hash[c.label.to_s] = c}
-      @values_map = {}
+      @values_map = ActiveSupport::OrderedHash.new
     end
 
     # Return true if the aggregate map includes the specified row value
