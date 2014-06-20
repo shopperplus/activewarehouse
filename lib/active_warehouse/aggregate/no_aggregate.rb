@@ -214,6 +214,9 @@ module ActiveWarehouse #:nodoc:
           sql += %Q(\nORDER BY\n  #{order_by.join(",\n")})
         end
 
+        if options[:limit].present?
+          sql += " limit #{options[:limit]}"
+        end
 
         if options[:return] == :sql
           sql
