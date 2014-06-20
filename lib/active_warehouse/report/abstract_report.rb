@@ -42,6 +42,8 @@ module ActiveWarehouse #:nodoc:
       # An optional conditions String
       attr_accessor :conditions
 
+      attr_accessor :limit
+
 
       def initialize(attributes = {})
         attributes.each do |name, value|

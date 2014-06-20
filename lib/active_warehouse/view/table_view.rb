@@ -36,7 +36,7 @@ module ActiveWarehouse #:nodoc:
 
       def execute_query
         report.cube.query_row_and_column(row_dimension, column_dimension,
-                                         :conditions => report.conditions )
+                                         :conditions => report.conditions, :limit => report.limit )
       end
 
       def column_total(column_index)
