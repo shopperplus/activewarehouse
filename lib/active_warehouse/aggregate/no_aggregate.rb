@@ -215,7 +215,7 @@ module ActiveWarehouse #:nodoc:
         end
 
         if options[:limit].present?
-          sql += " limit #{options[:limit]}"
+          sql += "\nlimit #{options[:limit]}"
         end
 
         if options[:return] == :sql
