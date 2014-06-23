@@ -44,6 +44,7 @@ module ActiveWarehouse #:nodoc:
 
       attr_accessor :limit
 
+      attr_accessor :order
 
       def initialize(attributes = {})
         attributes.each do |name, value|
