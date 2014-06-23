@@ -210,12 +210,12 @@ module ActiveWarehouse #:nodoc:
         if options[:order]
           order_by = options[:order]
           order_by = [order_by] if order_by.is_a?(String)
-          order_by.collect!{ |v| cube_class.connection.quote_column_name(v) }
+          #order_by.collect!{ |v| cube_class.connection.quote_column_name(v) }
           sql += %Q(\nORDER BY\n  #{order_by.join(",\n")})
         end
 
         if options[:limit].present?
-          sql += "\nlimit #{options[:limit]}"
+          sql += "\nLIMIT #{options[:limit]}"
         end
 
         if options[:return] == :sql
