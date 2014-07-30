@@ -133,7 +133,7 @@ module ActiveWarehouse #:nodoc:
             if fact_class.belongs_to_relationship?(dimension_name)
               sql += "\nJOIN #{dimension.table_name} as #{dimension_name}"
               sql += "\n  ON #{fact_class.table_name}.#{fact_class.foreign_key_for(dimension_name)} = "
-              sql += "#{dimension_name}.#{dimension.primary_key}"
+              sql += "#{dimension_name}.#{fact_class.reflections[dimension_name].association_primary_key}"
             elsif fact_class.has_and_belongs_to_many_relationship?(dimension_name)
               relationship = fact_class.dimension_relationship(dimension_name)
               sql += "\nJOIN #{relationship.options[:join_table]} as #{dimension_name}_bridge"
@@ -141,7 +141,7 @@ module ActiveWarehouse #:nodoc:
               sql += "#{dimension_name}_bridge.#{relationship.options[:foreign_key]}"
               sql += "\nJOIN #{dimension.table_name} as #{dimension_name}"
               sql += "\n  ON #{dimension_name}_bridge.#{relationship.options[:association_foreign_key]} = "
-              sql += "#{dimension_name}.#{dimension.primary_key}"
+              sql += "#{dimension_name}.#{fact_class.reflections[dimension_name].association_primary_key}"
             end
           else
             dimension_bridge = dimension.bridge_class
