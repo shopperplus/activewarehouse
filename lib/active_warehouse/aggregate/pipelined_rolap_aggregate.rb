@@ -145,6 +145,7 @@ module ActiveWarehouse #:nodoc
         else
           query_table_name = aggregate_rollup_name(aggregate_table_name(options), aggregate_levels)
 
+          # SQL
           aggregate_column_names = aggregate_fields.collect do |c|
 
             if c.is_additive? || aggregate_options[:always_use_fact]

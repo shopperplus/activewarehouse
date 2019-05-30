@@ -61,7 +61,7 @@ module ActiveWarehouse
       # before joining together with commas.
       def aggregated_fact_column_sql
         aggregate_fields.collect { |c| 
-          "#{c.strategy_name}(#{c.from_table_name}.#{c.name}) AS #{c.label_for_table}"
+          "#{c.strategy_name}(#{c.sql_field_name}) AS #{c.label_for_table}"
         }.join(",")
       end
       

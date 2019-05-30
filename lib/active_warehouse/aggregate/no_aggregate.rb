@@ -85,14 +85,14 @@ module ActiveWarehouse #:nodoc:
             c.levels_from_parent.each do |level|
               case level
               when :all
-                agg_sql += "  #{c.strategy_name}(#{c.from_table_name}.#{c.name}) AS #{quoted_label})"
+                agg_sql += "  #{c.strategy_name}(#{c.sql_field_name}) AS #{quoted_label})"
                 get_all = true
               when :self
                 agg_sql += " #{c.strategy_name}(CASE " if agg_sql.length == 0
-                agg_sql += " WHEN #{bridge_table_name}.#{levels_from_parent} = 0 THEN #{c.from_table_name}.#{c.name} \n"
+                agg_sql += " WHEN #{bridge_table_name}.#{levels_from_parent} = 0 THEN #{c.sql_field_name} \n"
               when Integer  
                 agg_sql += " #{c.strategy_name}(CASE " if agg_sql.length == 0              
-                agg_sql += " WHEN #{bridge_table_name}.#{levels_from_parent} = #{level} then #{c.from_table_name}.#{c.name} \n"
+                agg_sql += " WHEN #{bridge_table_name}.#{levels_from_parent} = #{level} then #{c.sql_field_name} \n"
               else
                 raise ArgumentError, "Each element to :levels_from_parent option must be :all, :self, or Integer"
               end
@@ -100,9 +100,9 @@ module ActiveWarehouse #:nodoc:
             agg_sql += " ELSE 0 END) AS #{quoted_label}" unless get_all
           else
             if c.is_distinct?
-              agg_sql = "  #{c.strategy_name}(distinct #{c.from_table_name}.#{c.name}) AS #{quoted_label}" 
+              agg_sql = "  #{c.strategy_name}(distinct #{c.sql_field_name}) AS #{quoted_label}" 
             else
-              agg_sql = "  #{c.strategy_name}(#{c.from_table_name}.#{c.name}) AS #{quoted_label}" 
+              agg_sql = "  #{c.strategy_name}(#{c.sql_field_name}) AS #{quoted_label}" 
             end
           end
           agg_sql

@@ -37,6 +37,10 @@ module ActiveWarehouse
     def is_distinct?
       field_options[:distinct] and field_options[:distinct] == true
     end
+
+    def sql?
+      field_options[:sql] && !field_options[:sql].empty?
+    end
     
     def is_count_distinct?
       @strategy_name == :count and is_distinct?
@@ -60,5 +64,15 @@ module ActiveWarehouse
     def type_cast(value)
       @column_definition.type_cast(value)
     end
+
+    def sql_field_name
+      @sql_field_name ||= "#{from_table_name}.#{name}".freeze
+      if sql?
+        field_options[:sql].gsub(":#{name}", @sql_field_name)
+      else
+        @sql_field_name
+      end
+    end
+
   end
 end
